@@ -1,5 +1,5 @@
 Timelapse-Zero
-========
+==============
 
 Documentation and files for setting up timelapse photography on a Raspberry Pi Zero.
 
