@@ -8,7 +8,7 @@ Dependencies
 ------------
 
 - Enabled Pi Camera
-- NodejS
+- NodeJS
 - AWS CLI (through pip, not apt-get)
 - AWS IAM credentials configured on the Pi with access to an S3 bucket
 
