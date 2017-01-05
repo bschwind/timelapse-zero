@@ -1,1 +1,4 @@
-*/2 * * * * /home/pi/camera.sh 2>&1
+Stored in /var/spool/cron/crontabs/pi
+
+*/5 * * * * /home/pi/camera.sh 2>&1
+0 * * * * /home/pi/sync.sh 2>&1
