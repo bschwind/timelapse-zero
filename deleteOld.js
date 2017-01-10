@@ -24,7 +24,6 @@ files.map(function (f) {
     return moment(f.dirName, "YYYY_MM_DD").isBefore(cutoffTime);
 })
 .forEach(function (f) {
-    console.log("Delete " + f.fullPath);
     // Delete the older directories
     fs.emptyDirSync(f.fullPath);
     fs.rmdirSync(f.fullPath);
