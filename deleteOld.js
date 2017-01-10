@@ -1,6 +1,8 @@
-var fs = require("fs");
+var fs = require("fs-extra");
+var moment = require("moment");
 
 var maxAge = 172800; // 2 days in seconds
+var cutoffTime = moment().startOf("day").subtract(2, "days");
 var baseDir = "/home/pi/camera";
 var now = +new Date();
 now = now / 1000;
@@ -8,21 +10,22 @@ now = now / 1000;
 var files = fs.readdirSync(baseDir);
 
 files.map(function (f) {
-    // Convert to number
     return {
-        file: f,
-        num: Number(f.split(".").shift())
+        fullPath: baseDir + "/" + f,
+        dirName: f
     };
 })
 .filter(function (f) {
-    // Remove NaN
-    return !isNaN(f.num);
+    // Only allow directories with a date pattern
+    return fs.lstatSync(f.fullPath).isDirectory() && /\d{4}_\d{2}_\d{2}/.test(f.dirName);
 })
 .filter(function (f) {
-    // Filter out dates that are two days or younger
-    return now - f.num > maxAge;
+    // Only allow directories older than two days
+    return moment(f.dirName, "YYYY_MM_DD").isBefore(cutoffTime);
 })
 .forEach(function (f) {
-    // Delete the files older than maxAge
-    fs.unlinkSync(baseDir + "/" + f.file);
+    console.log("Delete " + f.fullPath);
+    // Delete the older directories
+    fs.emptyDirSync(f.fullPath);
+    fs.rmdirSync(f.fullPath);
 });
