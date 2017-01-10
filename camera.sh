@@ -1,7 +1,8 @@
 #!/bin/bash
 DATE=$(date +"%Y_%m_%d")
 TIME=$(date +%s)
-raspistill -o /home/pi/camera/$DATE/$TIME.png \
+mkdir -p /home/pi/camera/$DATE
+raspistill -o /home/pi/camera/$DATE/$TIME.jpg \
            -t 1 \
            -q 100 \
            -ISO 100 \
